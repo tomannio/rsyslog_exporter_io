@@ -5,6 +5,8 @@ A [prometheus](http://prometheus.io/) exporter for [rsyslog](http://rsyslog.com)
 ## Rsyslog Configuration
 Configure rsyslog to push JSON formatted stats via omprog:
 ```
+module(load="omprog")
+
 module(
   load="impstats"
   interval="10"
@@ -17,12 +19,24 @@ ruleset(name="process_stats") {
   action(
     type="omprog"
     name="to_exporter"
-    binary="/usr/local/bin/rsyslog_exporter"
+    binary="/usr/local/bin/rsyslog_exporter [--tls.server-crt=/path/to/tls.crt --tls.server-key=/path/to/tls.key]"
   )
 }
 ```
 
 The exporter itself logs back via syslog, this cannot be configured at the moment.
+
+## Command Line Switches
+* `web.listen-address` - default `:9104` - port to listen to (NOTE: the leading
+  `:` is required for `http.ListenAndServe`)
+* `web.telemetry-path` - default `/metrics` - path from which to serve Prometheus metrics
+* `tls.server-crt` - default `""` - PEM encoded file containing the server certificate and
+  the CA certificate for use with `http.ListenAndServeTLS`
+* `tls.server-key` - default `""` - PEM encoded file containing the unencrypted
+  server key for use with `tls.server-crt`
+
+If you want the exporter to listen for TLS (`https`) you must specify both
+`tls.server-crt` and `tls.server-key`.
 
 ## Provided Metrics
 The following metrics provided by the rsyslog [impstats](https://www.rsyslog.com/doc/master/configuration/modules/impstats.html) module are tracked by rsyslog_exporter:
