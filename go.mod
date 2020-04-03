@@ -1,4 +1,4 @@
-module github.com/soundcloud/rsyslog_exporter
+module github.com/aleroyer/rsyslog_exporter
 
 go 1.13
 

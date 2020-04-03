@@ -104,7 +104,7 @@ func TestDynafileCacheToPoints(t *testing.T) {
 	}
 
 	seen := map[string]bool{}
-	for name, _ := range wants {
+	for name := range wants {
 		seen[name] = false
 	}
 
