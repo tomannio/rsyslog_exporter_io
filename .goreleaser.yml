@@ -14,7 +14,7 @@ builds:
       - arm
       - arm64
 checksum:
-  name_template: "{{ .ProjectName }}_v{{ .Version }}_checksums.txt"
+  name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 changelog:
   sort: asc
   filters:
@@ -24,14 +24,12 @@ changelog:
       - Merge pull request
       - Merge branch
 archives:
-  - name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+  - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     replacements:
       linux: Linux
       amd64: x86_64
 nfpms:
-  - package_name: rsyslog-exporter
-    file_name_template: "rsyslog-exporter_{{ .Version }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    homepage: https://github.com/aleroyer/rsyslog_exporter
+  - homepage: https://github.com/aleroyer/rsyslog_exporter
     description: rsyslog-exporter for prometheus
     maintainer: Antoine Leroyer <aleroyer@deezer.com>
     license: Apache 2.0
@@ -39,3 +37,9 @@ nfpms:
     formats:
       - deb
       - rpm
+    overrides:
+      deb:
+        release: 1
+        file_name_template: "rsyslog-exporter_{{ .Version }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+      rpm:
+        file_name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Arch }}"
