@@ -5,38 +5,37 @@ before:
   hooks:
     - go mod download
 builds:
-- env:
-    - CGO_ENABLED=0
-  goos:
-    - linux
-  goarch:
-    - 386
-    - amd64
-    - arm
-    - arm64
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm
+      - arm64
 checksum:
-  name_template: '{{ .ProjectName }}_checksums.txt'
+  name_template: "{{ .ProjectName }}_v{{ .Version }}_checksums.txt"
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^docs:'
-    - '^test:'
-    - Merge pull request
-    - Merge branch
+      - "^docs:"
+      - "^test:"
+      - Merge pull request
+      - Merge branch
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  - name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     replacements:
       linux: Linux
-      386: i386
       amd64: x86_64
 nfpms:
-  - file_name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-    homepage:  https://github.com/aleroyer/rsyslog_exporter
+  - package_name: rsyslog-exporter
+    file_name_template: "rsyslog-exporter_{{ .Version }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    homepage: https://github.com/aleroyer/rsyslog_exporter
     description: rsyslog-exporter for prometheus
     maintainer: Antoine Leroyer <aleroyer@deezer.com>
     license: Apache 2.0
     bindir: /usr/bin
     formats:
-    - deb
-    - rpm
+      - deb
+      - rpm
