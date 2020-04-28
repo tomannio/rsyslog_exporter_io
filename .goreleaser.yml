@@ -34,12 +34,12 @@ nfpms:
     maintainer: Antoine Leroyer <aleroyer@deezer.com>
     license: Apache 2.0
     bindir: /usr/bin
+    release: 1
     formats:
       - deb
       - rpm
     overrides:
       deb:
-        release: 1
         file_name_template: "rsyslog-exporter_{{ .Version }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
       rpm:
         file_name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Arch }}"
