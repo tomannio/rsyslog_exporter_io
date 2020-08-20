@@ -21,6 +21,7 @@ const (
 	rsyslogResource
 	rsyslogDynStat
 	rsyslogDynafileCache
+	rsyslogInputIMDUP
 )
 
 type rsyslogExporter struct {
@@ -66,6 +67,15 @@ func (re *rsyslogExporter) handleStatLine(rawbuf []byte) error {
 			return err
 		}
 		for _, p := range i.toPoints() {
+			re.set(p)
+		}
+
+	case rsyslogInputIMDUP:
+		u, err := newInputIMUDPFromJSON(buf)
+		if err != nil {
+			return err
+		}
+		for _, p := range u.toPoints() {
 			re.set(p)
 		}
 
