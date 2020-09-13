@@ -104,3 +104,11 @@ metrics, a "global" dynstats namespace is also published with some additional bo
 
 See the [dyn_stats](https://www.rsyslog.com/doc/master/configuration/dyn_stats.html)
 documentation for more information.
+
+### IMUDP Workerthread stats
+The [imudp](https://www.rsyslog.com/rsyslog-statistic-counter-plugin-imudp/) module can be configured
+to run on multiple worker threads and the following metrics are returned:
+
+* input_called_recvmmsg - Number of recvmmsg called
+* input_called_recvmsg -Number of recvmmsg called
+* input_received - Messages received
