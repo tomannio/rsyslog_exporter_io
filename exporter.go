@@ -22,6 +22,7 @@ const (
 	rsyslogDynStat
 	rsyslogDynafileCache
 	rsyslogInputIMDUP
+	rsyslogForward
 )
 
 type rsyslogExporter struct {
@@ -112,7 +113,14 @@ func (re *rsyslogExporter) handleStatLine(rawbuf []byte) error {
 		for _, p := range d.toPoints() {
 			re.set(p)
 		}
-
+	case rsyslogForward:
+		f, err := newForwardFromJSON(buf)
+		if err != nil {
+			return err
+		}
+		for _, p := range f.toPoints() {
+			re.set(p)
+		}
 	default:
 		return fmt.Errorf("unknown pstat type: %v", pstatType)
 	}
