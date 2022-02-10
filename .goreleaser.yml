@@ -30,9 +30,9 @@ archives:
       amd64: x86_64
 nfpms:
   - package_name: "rsyslog-exporter"
-    homepage: https://github.com/aleroyer/rsyslog_exporter
+    homepage: https://github.com/tomannio/rsyslog_exporter_io
     description: rsyslog-exporter for prometheus
-    maintainer: Antoine Leroyer <aleroyer@deezer.com>
+    maintainer: tomannio
     license: Apache 2.0
     bindir: /usr/bin
     release: 1
