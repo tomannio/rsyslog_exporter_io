@@ -1,4 +1,4 @@
-module github.com/aleroyer/rsyslog_exporter
+module github.com/tomannio/rsyslog_exporter_io
 
 go 1.13
 
